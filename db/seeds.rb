@@ -21,7 +21,8 @@ puts "Creating Pokemons..."
     api_id: pokemon_api['id'],
     species_id: pokemon_api['id'],
     front_default: pokemon_api['sprites']['front_default'],
-    front_shiny: pokemon_api['sprites']['front_shiny']
+    front_shiny: pokemon_api['sprites']['front_shiny'],
+    official_artwork: pokemon_api['sprites']['other']['official-artwork']['front_default']
   )
 end
 puts "Pokemons created !"
