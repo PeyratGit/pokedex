@@ -9,9 +9,15 @@
       <div class="pokemon-card">
         <div class="pokemon-card top">
           <%= image_tag(pokemon.official_artwork) %>
+          <% if pokemon.type_2.nil? %>
+            <%= render "tags/#{pokemon.type_1}_tag" %>
+          <% else %>
+            <%= render "tags/#{pokemon.type_1}_tag" %>
+            <%= render "tags/#{pokemon.type_2}_tag" %>
+          <% end %>
         </div>
         <div class="pokemon-card bottom">
-          <p><%= pokemon.name %></p>
+          <p><%= pokemon.name.upcase %></p>
         </div>
       </div>
     <% end %>
