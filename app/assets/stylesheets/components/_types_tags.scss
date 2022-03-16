@@ -19,6 +19,16 @@
     width: 11px !important;
     height: 11px !important;
   }
+  &.type_1 {
+    position:absolute;
+    bottom: 3px;
+    right: 3px;
+  }
+  &.type_2 {
+    position:absolute;
+    bottom: 18px;
+    right: 3px;
+  }
   &.grass {
     background-color: #38BF4B;
   }

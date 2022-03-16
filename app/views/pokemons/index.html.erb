@@ -10,10 +10,10 @@
         <div class="pokemon-card top">
           <%= image_tag(pokemon.official_artwork) %>
           <% if pokemon.type_2.nil? %>
-            <%= render "tags/#{pokemon.type_1}_tag" %>
+            <%= render partial: "tags/#{pokemon.type_1}_tag", locals: {myclass: 'type_1'} %>
           <% else %>
-            <%= render "tags/#{pokemon.type_1}_tag" %>
-            <%= render "tags/#{pokemon.type_2}_tag" %>
+            <%= render partial: "tags/#{pokemon.type_1}_tag", locals: {myclass: 'type_1'} %>
+            <%= render partial: "tags/#{pokemon.type_2}_tag", locals: {myclass: 'type_2'} %>
           <% end %>
         </div>
         <div class="pokemon-card bottom">
