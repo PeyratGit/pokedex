@@ -9,7 +9,7 @@ puts "Destroying pokemons ..."
 Pokemon.destroy_all
 puts "Pokemons destroyed !"
 puts "Creating Pokemons..."
-6.times do |i|
+18.times do |i|
   pokemon_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon/#{i+1}").read)
   if pokemon_api['types'].length == 1
     Pokemon.create(
