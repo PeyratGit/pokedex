@@ -1,0 +1,19 @@
+<div class="container-mine">
+  <h1>POKEDEX</h1>
+  <div class="search-bar">
+  </div>
+  <div class="filters-container">
+  </div>
+  <div class="cards-container">
+    <% @pokemons.each do |pokemon| %>
+      <div class="pokemon-card">
+        <div class="pokemon-card top">
+          <%= image_tag(pokemon.front_default) %>
+        </div>
+        <div class="pokemon-card bottom">
+          <p><%= pokemon.name %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
