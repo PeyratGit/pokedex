@@ -123,6 +123,10 @@
   </div>
 <% end %>
 
-<%= @pokemon.weaknesses_damage_taken %>
+Take *2, *4 : <%= @pokemon.weaknesses_damage_taken %>
 <br>
-<%= @pokemon.resistances_damage_taken %>
+Take *1/2, *1/4, *0 : <%= @pokemon.resistances_damage_taken %>
+<br>
+Give *2 : <%= @pokemon.offense_damage_given %>
+<br>
+Give *1/2, *1/4, *0 :<%= @pokemon.resistances_damage_given %>
