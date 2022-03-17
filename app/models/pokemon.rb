@@ -28,19 +28,19 @@ class Pokemon < ApplicationRecord
 
   def weaknesses_double
     $type_double_damage_from.each do |type|
-      $all_types_double[:"#{type}"] += 1
+      $all_types_double_from[:"#{type}"] += 1
     end
   end
 
   def weaknesses_half
     $type_half_damage_from.each do |type|
-      $all_types_half[:"#{type}"] = 0.5
+      $all_types_half_from[:"#{type}"] = 0.5
     end
   end
 
   def weaknesses_no
     $type_no_damage_from.each do |type|
-      $all_types_no[:"#{type}"] = 0
+      $all_types_no_from[:"#{type}"] = 0
     end
   end
 
@@ -50,11 +50,11 @@ class Pokemon < ApplicationRecord
     $type_no_damage_from = []
     $all_types_defense = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
                            psychic: 1, rock: 1, steel: 1, water: 1 }
-    $all_types_double = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
+    $all_types_double_from = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
                            psychic: 1, rock: 1, steel: 1, water: 1 }
-    $all_types_half = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
+    $all_types_half_from = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
                            psychic: 1, rock: 1, steel: 1, water: 1 }
-    $all_types_no = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
+    $all_types_no_from = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
                            psychic: 1, rock: 1, steel: 1, water: 1 }
     weaknessestype1
     if self.type_2.nil? == false
@@ -64,8 +64,17 @@ class Pokemon < ApplicationRecord
     weaknesses_half
     weaknesses_no
     $all_types_defense.each do |key, value|
-      $all_types_defense[:"#{key}"] = $all_types_double[:"#{key}"] * $all_types_half[:"#{key}"] * $all_types_no[:"#{key}"]
+      $all_types_defense[:"#{key}"] = $all_types_double_from[:"#{key}"] * $all_types_half_from[:"#{key}"] * $all_types_no_from[:"#{key}"]
     end
-    return $all_types_defense
+  end
+
+  def weaknesses_damage_taken
+    weaknesses
+    return $all_types_defense.select { |type, value| value > 1 }
+  end
+
+  def resistances_damage_taken
+    weaknesses
+    return $all_types_defense.select { |type, value| value < 1 }
   end
 end
