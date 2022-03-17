@@ -45,3 +45,17 @@ puts "Creating Pokemons..."
   end
 end
 puts "Pokemons created !"
+puts "Creating types..."
+18.times do |i|
+  types_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/type/#{i+1}").read)
+  Type.create(
+    name: types_api['name'],
+    double_damage_from: types_api['damage_relations']['double_damage_from'],
+    double_damage_to: types_api['damage_relations']['double_damage_to'],
+    half_damage_from: types_api['damage_relations']['half_damage_from'],
+    half_damage_to: types_api['damage_relations']['half_damage_to'],
+    no_damage_from: types_api['damage_relations']['no_damage_from'],
+    no_damage_to: types_api['damage_relations']['no_damage_to']
+  )
+end
+puts "Types created !"

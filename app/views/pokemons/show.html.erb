@@ -1,2 +1,13 @@
 <h1>Pokemons#show</h1>
 <p>Find me in app/views/pokemons/show.html.erb</p>
+
+<!-- image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) -->
+
+
+Take *2, *4 : <%= @pokemon.weaknesses_damage_taken %>
+<br>
+Take *1/2, *1/4, *0 : <%= @pokemon.resistances_damage_taken %>
+<br>
+Give *2 : <%= @pokemon.offense_damage_given %>
+<br>
+Give *1/2, *1/4, *0 :<%= @pokemon.resistances_damage_given %>
