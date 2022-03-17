@@ -1,79 +1,126 @@
 <h1>Pokemons#show</h1>
 <p>Find me in app/views/pokemons/show.html.erb</p>
-<div>
-  <p>Here's double damage from 1 :</p>
-  <% @type1.double_damage_from.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
-<div>
-  <p>Here's double damage from 2 :</p>
-  <% @type2.double_damage_from.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
+<% if @type2.nil? %>
+  <div>
+    <p>Here's double damage from 1 :</p>
+    <% @type1.double_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
 
-<div>
-  <p>Here's double damage to 1 :</p>
-  <% @type1.double_damage_to.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
-<div>
-  <p>Here's double damage to 2 :</p>
-  <% @type2.double_damage_to.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
+  <div>
+    <p>Here's double damage to 1 :</p>
+    <% @type1.double_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
 
-<div>
-  <p>Here's half damage from 1 :</p>
-  <% @type1.half_damage_from.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
-<div>
-  <p>Here's half damage from 2 :</p>
-  <% @type2.half_damage_from.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
+  <div>
+    <p>Here's half damage from 1 :</p>
+    <% @type1.half_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
 
-<div>
-  <p>Here's half damage to 1 :</p>
-  <% @type1.half_damage_to.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
-<div>
-  <p>Here's half damage to 2 :</p>
-  <% @type2.half_damage_to.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
+  <div>
+    <p>Here's half damage to 1 :</p>
+    <% @type1.half_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
 
-<div>
-  <p>Here's no damage from 1 :</p>
-  <% @type1.no_damage_from.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
-<div>
-  <p>Here's no damage from 2 :</p>
-  <% @type2.no_damage_from.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
+  <div>
+    <p>Here's no damage from 1 :</p>
+    <% @type1.no_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
 
-<div>
-  <p>Here's no damage to 1 :</p>
-  <% @type1.no_damage_to.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
-<div>
-  <p>Here's no damage to 2 :</p>
-  <% @type2.no_damage_to.each do |type|%>
-    <%= type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0] %>
-  <% end %>
-</div>
+  <div>
+    <p>Here's no damage to 1 :</p>
+    <% @type1.no_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+
+<% else %>
+  <div>
+    <p>Here's double damage from 1 :</p>
+    <% @type1.double_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+  <div>
+    <p>Here's double damage from 2 :</p>
+    <% @type2.double_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+
+  <div>
+    <p>Here's double damage to 1 :</p>
+    <% @type1.double_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+  <div>
+    <p>Here's double damage to 2 :</p>
+    <% @type2.double_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+
+  <div>
+    <p>Here's half damage from 1 :</p>
+    <% @type1.half_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+  <div>
+    <p>Here's half damage from 2 :</p>
+    <% @type2.half_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+
+  <div>
+    <p>Here's half damage to 1 :</p>
+    <% @type1.half_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+  <div>
+    <p>Here's half damage to 2 :</p>
+    <% @type2.half_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+
+  <div>
+    <p>Here's no damage from 1 :</p>
+    <% @type1.no_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+  <div>
+    <p>Here's no damage from 2 :</p>
+    <% @type2.no_damage_from.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+
+  <div>
+    <p>Here's no damage to 1 :</p>
+    <% @type1.no_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+  <div>
+    <p>Here's no damage to 2 :</p>
+    <% @type2.no_damage_to.each do |type|%>
+      <%= image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= @pokemon.weaknessestype1 %>
