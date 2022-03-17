@@ -1,7 +1,4 @@
 class Pokemon < ApplicationRecord
-  $type_double_damage_from = []
-  $type_half_damage_from = []
-  $type_no_damage_from = []
 
   def weaknessestype1
     type1 = Type.find_by(name: self.type_1)
@@ -29,17 +26,37 @@ class Pokemon < ApplicationRecord
     end
   end
 
-  def test
+  def weaknesses_double
+    $type_double_damage_from.each do |type|
+      $all_types_defense[:"#{type}"] += 1
+    end
+  end
+
+  def weaknesses_half
+    $type_half_damage_from.each do |type|
+      $all_types_defense[:"#{type}"] -= 1
+    end
+  end
+
+  def weaknesses_no
+    $type_no_damage_from.each do |type|
+      $all_types_defense[:"#{type}"] = 0
+    end
+  end
+
+  def weaknesses
     $type_double_damage_from = []
+    $type_half_damage_from = []
+    $type_no_damage_from = []
+    $all_types_defense = { bug: 2, dark: 2, dragon: 2, electric: 2, fairy: 2, fighting: 2, fire: 2, flying: 2, ghost: 2, grass: 2, ground: 2, ice: 2, normal: 2, poison: 2,
+                           psychic: 2, rock: 2, steel: 2, water: 2 }
     weaknessestype1
     if self.type_2.nil? == false
       weaknessestype2
     end
-    return $type_double_damage_from
-  end
-
-  def weaknesses
-    all_types_defense = { bug: 0, dark: 0, dragon: 0, electric: 0, fairy: 0, fighting: 0, fire: 0, flying: 0, ghost: 0, grass: 0, ground: 0, ice: 0, normal: 0, poison: 0,
-                          psychic: 0, rock: 0, steel: 0, water: 0 }
+    weaknesses_double
+    weaknesses_half
+    weaknesses_no
+    return $all_types_defense
   end
 end
