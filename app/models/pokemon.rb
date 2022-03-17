@@ -28,19 +28,19 @@ class Pokemon < ApplicationRecord
 
   def weaknesses_double
     $type_double_damage_from.each do |type|
-      $all_types_defense[:"#{type}"] += 1
+      $all_types_double[:"#{type}"] += 1
     end
   end
 
   def weaknesses_half
     $type_half_damage_from.each do |type|
-      $all_types_defense[:"#{type}"] -= 1
+      $all_types_half[:"#{type}"] = 0.5
     end
   end
 
   def weaknesses_no
     $type_no_damage_from.each do |type|
-      $all_types_defense[:"#{type}"] = 0
+      $all_types_no[:"#{type}"] = 0
     end
   end
 
@@ -48,8 +48,14 @@ class Pokemon < ApplicationRecord
     $type_double_damage_from = []
     $type_half_damage_from = []
     $type_no_damage_from = []
-    $all_types_defense = { bug: 2, dark: 2, dragon: 2, electric: 2, fairy: 2, fighting: 2, fire: 2, flying: 2, ghost: 2, grass: 2, ground: 2, ice: 2, normal: 2, poison: 2,
-                           psychic: 2, rock: 2, steel: 2, water: 2 }
+    $all_types_defense = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
+                           psychic: 1, rock: 1, steel: 1, water: 1 }
+    $all_types_double = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
+                           psychic: 1, rock: 1, steel: 1, water: 1 }
+    $all_types_half = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
+                           psychic: 1, rock: 1, steel: 1, water: 1 }
+    $all_types_no = { bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1,
+                           psychic: 1, rock: 1, steel: 1, water: 1 }
     weaknessestype1
     if self.type_2.nil? == false
       weaknessestype2
@@ -57,6 +63,9 @@ class Pokemon < ApplicationRecord
     weaknesses_double
     weaknesses_half
     weaknesses_no
+    $all_types_defense.each do |key, value|
+      $all_types_defense[:"#{key}"] = $all_types_double[:"#{key}"] * $all_types_half[:"#{key}"] * $all_types_no[:"#{key}"]
+    end
     return $all_types_defense
   end
 end
