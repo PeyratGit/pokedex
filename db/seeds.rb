@@ -5,8 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-PokemonStat.destroy_all
-Pokemon.destroy_all
 if Pokemon.count != 18
   puts "Destroying pokemons ..."
   Pokemon.destroy_all
@@ -169,4 +167,29 @@ if PokemonStat.count != (Pokemon.count * 6)
     end
   end
   puts "Pokemon stats created !"
+end
+
+if Species.count != Pokemon.count
+  puts "Destroying species..."
+  Species.destroy_all
+  puts "Species destroyed !"
+  puts "Creating species..."
+  Pokemon.all.each do |pokemon|
+    specie_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{pokemon.api_id}").read)
+    Species.create(
+      name: specie_api['name'],
+      base_happiness: specie_api['base_happiness'],
+      capture_rate: specie_api['capture_rate'],
+      forms_switchable: specie_api['forms_switchable'],
+      gender_rate: specie_api['gender_rate'],
+      has_gender_differences: specie_api['has_gender_differences'],
+      hatch_counter: specie_api['hatch_counter'],
+      api_id: specie_api['api_id'],
+      is_baby: specie_api['is_baby'],
+      is_legendary: specie_api['is_legendary'],
+      is_mythical: specie_api['is_mythical'],
+      order: specie_api['order']
+    )
+  end
+  puts "Species created !"
 end
