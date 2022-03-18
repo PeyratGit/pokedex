@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_142605) do
+ActiveRecord::Schema.define(version: 2022_03_18_161844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,23 @@ ActiveRecord::Schema.define(version: 2022_03_18_142605) do
     t.string "home_front_female"
     t.string "home_front_shiny"
     t.string "home_front_shiny_female"
+  end
+
+  create_table "species", force: :cascade do |t|
+    t.string "name"
+    t.integer "base_happiness"
+    t.integer "capture_rate"
+    t.boolean "forms_switchable"
+    t.integer "gender_rate"
+    t.boolean "has_gender_differences"
+    t.integer "hatch_counter"
+    t.integer "api_id"
+    t.boolean "is_baby"
+    t.boolean "is_legendary"
+    t.boolean "is_mythical"
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "stats", force: :cascade do |t|
