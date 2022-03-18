@@ -79,4 +79,29 @@ if Stat.count != 8
       name: stats_api["name"]
     )
   end
+  puts "Stats created !"
+end
+
+if PokemonStat.count != (Pokemon.count * 6)
+  puts "Destroying pokemon stats..."
+  PokemonStat.destroy_all
+  puts "Pokemon stats destroyed !"
+  puts "Creating pokemon stats..."
+  Pokemon.all.each do |pokemon|
+    pokemon_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon/#{pokemon.api_id}").read)
+    @stats = Stat.all
+    6.times do |i|
+      # puts "Pokemon id : #{pokemon.id}"
+      # puts "Stat id : #{@stats[i].id}"
+      # puts "Base stat : #{pokemon_api['stats'][i]['base_stat']}"
+      # puts "Effort : #{pokemon_api['stats'][i]['effort']}"
+      PokemonStat.create(
+        pokemon_id: pokemon.id,
+        stat_id: @stats[i].id,
+        base_stat: pokemon_api['stats'][i]['base_stat'],
+        effort: pokemon_api['stats'][i]['effort']
+      )
+    end
+  end
+  puts "Pokemon stats created !"
 end
