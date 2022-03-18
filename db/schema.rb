@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_101227) do
+ActiveRecord::Schema.define(version: 2022_03_18_133831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2022_03_18_101227) do
     t.string "official_artwork"
     t.string "type_1"
     t.string "type_2"
+    t.string "front_female"
+    t.string "front_shiny_female"
   end
 
   create_table "stats", force: :cascade do |t|
