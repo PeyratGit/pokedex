@@ -4,9 +4,9 @@
   </div>
   <div class="types">
     <% if @pokemon.type_2.nil? %>
-      <p>Type : <%= @pokemon.type_1 %></p>
+      <p>Type : <%= image_tag(@pokemon.type_1) %></p>
     <% else %>
-      <p>Types : <%= @pokemon.type_1 %> <%= @pokemon.type_2 %></p>
+      <p>Types : <%= image_tag(@pokemon.type_1) %> <%= image_tag(@pokemon.type_2) %></p>
     <% end %>
   </div>
   <div class="weight">
