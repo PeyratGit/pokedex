@@ -14,7 +14,7 @@
         <%= @pokemon.name.upcase %>
       </div>
       <div class="pokedex-number">
-        <%= "##{@pokemon.order}" %>
+        <%= "##{@pokemon.api_id}" %>
       </div>
     </div>
     <% if @pokemon == Pokemon.last %>

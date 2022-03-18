@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_161844) do
+ActiveRecord::Schema.define(version: 2022_03_18_163606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2022_03_18_161844) do
     t.boolean "is_default"
     t.integer "order"
     t.integer "api_id"
-    t.string "species_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "front_default"
@@ -52,6 +51,8 @@ ActiveRecord::Schema.define(version: 2022_03_18_161844) do
     t.string "home_front_female"
     t.string "home_front_shiny"
     t.string "home_front_shiny_female"
+    t.bigint "species_id", null: false
+    t.index ["species_id"], name: "index_pokemons_on_species_id"
   end
 
   create_table "species", force: :cascade do |t|
@@ -91,4 +92,5 @@ ActiveRecord::Schema.define(version: 2022_03_18_161844) do
 
   add_foreign_key "pokemon_stats", "pokemons"
   add_foreign_key "pokemon_stats", "stats"
+  add_foreign_key "pokemons", "species"
 end

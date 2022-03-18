@@ -5,13 +5,42 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-if Pokemon.count != 18
+PokemonStat.destroy_all
+Pokemon.destroy_all
+
+if Species.count != 6
+  puts "Destroying species..."
+  Species.destroy_all
+  puts "Species destroyed !"
+  puts "Creating species..."
+  6.times do |i|
+    specie_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{i+1}").read)
+    Species.create(
+      name: specie_api['name'],
+      base_happiness: specie_api['base_happiness'],
+      capture_rate: specie_api['capture_rate'],
+      forms_switchable: specie_api['forms_switchable'],
+      gender_rate: specie_api['gender_rate'],
+      has_gender_differences: specie_api['has_gender_differences'],
+      hatch_counter: specie_api['hatch_counter'],
+      api_id: specie_api['id'],
+      is_baby: specie_api['is_baby'],
+      is_legendary: specie_api['is_legendary'],
+      is_mythical: specie_api['is_mythical'],
+      order: specie_api['order']
+    )
+  end
+  puts "Species created !"
+end
+
+if Pokemon.count != 6
   puts "Destroying pokemons ..."
   Pokemon.destroy_all
   puts "Pokemons destroyed !"
   puts "Creating Pokemons..."
-  18.times do |i|
+  6.times do |i|
     pokemon_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon/#{i+1}").read)
+    increased_i = i + 1
     if pokemon_api['sprites']['front_female'].nil?
       if pokemon_api['types'].length == 1
         Pokemon.create(
@@ -22,7 +51,7 @@ if Pokemon.count != 18
           is_default: pokemon_api['is_default'],
           order: pokemon_api['order'],
           api_id: pokemon_api['id'],
-          species_id: pokemon_api['id'],
+          species_id: Species.find_by(api_id: increased_i).id,
           front_default: pokemon_api['sprites']['front_default'],
           front_shiny: pokemon_api['sprites']['front_shiny'],
           back_default: pokemon_api['sprites']['back_default'],
@@ -41,7 +70,7 @@ if Pokemon.count != 18
           is_default: pokemon_api['is_default'],
           order: pokemon_api['order'],
           api_id: pokemon_api['id'],
-          species_id: pokemon_api['id'],
+          species_id: Species.find_by(api_id: increased_i).id,
           front_default: pokemon_api['sprites']['front_default'],
           front_shiny: pokemon_api['sprites']['front_shiny'],
           back_default: pokemon_api['sprites']['back_default'],
@@ -63,7 +92,7 @@ if Pokemon.count != 18
           is_default: pokemon_api['is_default'],
           order: pokemon_api['order'],
           api_id: pokemon_api['id'],
-          species_id: pokemon_api['id'],
+          species_id: Species.find_by(api_id: increased_i).id,
           front_default: pokemon_api['sprites']['front_default'],
           front_shiny: pokemon_api['sprites']['front_shiny'],
           front_female: pokemon_api['sprites']['front_female'],
@@ -88,7 +117,7 @@ if Pokemon.count != 18
           is_default: pokemon_api['is_default'],
           order: pokemon_api['order'],
           api_id: pokemon_api['id'],
-          species_id: pokemon_api['id'],
+          species_id: Species.find_by(api_id: increased_i).id,
           front_default: pokemon_api['sprites']['front_default'],
           front_shiny: pokemon_api['sprites']['front_shiny'],
           front_female: pokemon_api['sprites']['front_female'],
@@ -167,29 +196,4 @@ if PokemonStat.count != (Pokemon.count * 6)
     end
   end
   puts "Pokemon stats created !"
-end
-
-if Species.count != Pokemon.count
-  puts "Destroying species..."
-  Species.destroy_all
-  puts "Species destroyed !"
-  puts "Creating species..."
-  Pokemon.all.each do |pokemon|
-    specie_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{pokemon.api_id}").read)
-    Species.create(
-      name: specie_api['name'],
-      base_happiness: specie_api['base_happiness'],
-      capture_rate: specie_api['capture_rate'],
-      forms_switchable: specie_api['forms_switchable'],
-      gender_rate: specie_api['gender_rate'],
-      has_gender_differences: specie_api['has_gender_differences'],
-      hatch_counter: specie_api['hatch_counter'],
-      api_id: specie_api['api_id'],
-      is_baby: specie_api['is_baby'],
-      is_legendary: specie_api['is_legendary'],
-      is_mythical: specie_api['is_mythical'],
-      order: specie_api['order']
-    )
-  end
-  puts "Species created !"
 end
