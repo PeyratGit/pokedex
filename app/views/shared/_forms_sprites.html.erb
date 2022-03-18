@@ -16,16 +16,15 @@
           <%= image_tag(@pokemon.back_default) %>
           <%= image_tag(@pokemon.back_shiny) %>
         </div>
-      </div>
-      <div class="row home">
-        <div class="forms">
-        <p>HOME</p>
-        <%= image_tag(@pokemon.home_front_default) %>
-        <%= image_tag(@pokemon.home_front_shiny) %>
+        <div class="forms home">
+          <p>HOME</p>
+          <%= image_tag(@pokemon.home_front_default) %>
+          <%= image_tag(@pokemon.home_front_shiny) %>
+        </div>
       </div>
     <% else %>
+      <p>MALE</p>
       <div class="row male">
-        <p>MALE</p>
         <div class="forms">
           <p>Front</p>
           <%= image_tag(@pokemon.front_default) %>
@@ -36,14 +35,14 @@
           <%= image_tag(@pokemon.back_default) %>
           <%= image_tag(@pokemon.back_shiny) %>
         </div>
-        <div class="forms">
+        <div class="forms home">
           <p>HOME</p>
           <%= image_tag(@pokemon.home_front_default) %>
           <%= image_tag(@pokemon.home_front_shiny) %>
         </div>
       </div>
+      <p>FEMALE</p>
       <div class="row female">
-        <p>FEMALE</p>
         <div class="forms">
           <p>Front</p>
           <%= image_tag(@pokemon.front_female) %>
@@ -54,7 +53,7 @@
           <%= image_tag(@pokemon.back_female) %>
           <%= image_tag(@pokemon.back_female) %>
         </div>
-        <div class="forms">
+        <div class="forms home">
           <p>HOME</p>
           <%= image_tag(@pokemon.home_front_female) %>
           <%= image_tag(@pokemon.home_front_shiny_female) %>

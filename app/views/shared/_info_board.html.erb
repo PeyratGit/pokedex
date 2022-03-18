@@ -1,0 +1,18 @@
+<div class="board">
+  <div class="name">
+    <p>Name : <%= @pokemon.name.capitalize %></p>
+  </div>
+  <div class="types">
+    <% if @pokemon.type_2.nil? %>
+      <p>Type : <%= @pokemon.type_1 %></p>
+    <% else %>
+      <p>Types : <%= @pokemon.type_1 %> <%= @pokemon.type_2 %></p>
+    <% end %>
+  </div>
+  <div class="weight">
+    <p>Weight : <%= @pokemon.weight.to_i/10.0 %>kg</p>
+  </div>
+  <div class="height">
+    <p>Height : <%= @pokemon.height.to_i/10.0 %>m</p>
+  </div>
+</div>
