@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+PokemonStat.destroy_all
+Pokemon.destroy_all
 if Pokemon.count != 18
   puts "Destroying pokemons ..."
   Pokemon.destroy_all
@@ -25,6 +27,10 @@ if Pokemon.count != 18
           species_id: pokemon_api['id'],
           front_default: pokemon_api['sprites']['front_default'],
           front_shiny: pokemon_api['sprites']['front_shiny'],
+          back_default: pokemon_api['sprites']['back_default'],
+          back_shiny: pokemon_api['sprites']['back_shiny'],
+          home_front_default: pokemon_api['sprites']['other']['home']['front_default'],
+          home_front_shiny: pokemon_api['sprites']['other']['home']['front_shiny'],
           official_artwork: pokemon_api['sprites']['other']['official-artwork']['front_default'],
           type_1: pokemon_api['types'][0]['type']['name']
         )
@@ -40,6 +46,10 @@ if Pokemon.count != 18
           species_id: pokemon_api['id'],
           front_default: pokemon_api['sprites']['front_default'],
           front_shiny: pokemon_api['sprites']['front_shiny'],
+          back_default: pokemon_api['sprites']['back_default'],
+          back_shiny: pokemon_api['sprites']['back_shiny'],
+          home_front_default: pokemon_api['sprites']['other']['home']['front_default'],
+          home_front_shiny: pokemon_api['sprites']['other']['home']['front_shiny'],
           official_artwork: pokemon_api['sprites']['other']['official-artwork']['front_default'],
           type_1: pokemon_api['types'][0]['type']['name'],
           type_2: pokemon_api['types'][1]['type']['name']
@@ -60,6 +70,14 @@ if Pokemon.count != 18
           front_shiny: pokemon_api['sprites']['front_shiny'],
           front_female: pokemon_api['sprites']['front_female'],
           front_shiny_female: pokemon_api['sprites']['front_shiny_female'],
+          back_default: pokemon_api['sprites']['back_default'],
+          back_female: pokemon_api['sprites']['back_female'],
+          back_shiny: pokemon_api['sprites']['back_shiny'],
+          back_shiny_female: pokemon_api['sprites']['back_shiny_female'],
+          home_front_default: pokemon_api['sprites']['other']['home']['front_default'],
+          home_front_female: pokemon_api['sprites']['other']['home']['front_female'],
+          home_front_shiny: pokemon_api['sprites']['other']['home']['front_shiny'],
+          home_front_shiny_female: pokemon_api['sprites']['other']['home']['front_shiny_female'],
           official_artwork: pokemon_api['sprites']['other']['official-artwork']['front_default'],
           type_1: pokemon_api['types'][0]['type']['name']
         )
@@ -77,6 +95,14 @@ if Pokemon.count != 18
           front_shiny: pokemon_api['sprites']['front_shiny'],
           front_female: pokemon_api['sprites']['front_female'],
           front_shiny_female: pokemon_api['sprites']['front_shiny_female'],
+          back_default: pokemon_api['sprites']['back_default'],
+          back_female: pokemon_api['sprites']['back_female'],
+          back_shiny: pokemon_api['sprites']['back_shiny'],
+          back_shiny_female: pokemon_api['sprites']['back_shiny_female'],
+          home_front_default: pokemon_api['sprites']['other']['home']['front_default'],
+          home_front_female: pokemon_api['sprites']['other']['home']['front_female'],
+          home_front_shiny: pokemon_api['sprites']['other']['home']['front_shiny'],
+          home_front_shiny_female: pokemon_api['sprites']['other']['home']['front_shiny_female'],
           official_artwork: pokemon_api['sprites']['other']['official-artwork']['front_default'],
           type_1: pokemon_api['types'][0]['type']['name'],
           type_2: pokemon_api['types'][1]['type']['name']

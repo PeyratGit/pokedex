@@ -1,0 +1,65 @@
+<div class="image-section">
+  <div class="official-artwork">
+    <p>Official Artwork</p>
+    <%= image_tag(@pokemon.official_artwork) %>
+  </div>
+  <div class="sprites-container">
+    <% if @pokemon.front_female.nil? %>
+      <div class="row default">
+        <div class="forms">
+          <p>Front</p>
+          <%= image_tag(@pokemon.front_default) %>
+          <%= image_tag(@pokemon.front_shiny) %>
+        </div>
+        <div class="forms">
+          <p>Back</p>
+          <%= image_tag(@pokemon.back_default) %>
+          <%= image_tag(@pokemon.back_shiny) %>
+        </div>
+      </div>
+      <div class="row home">
+        <div class="forms">
+        <p>HOME</p>
+        <%= image_tag(@pokemon.home_front_default) %>
+        <%= image_tag(@pokemon.home_front_shiny) %>
+      </div>
+    <% else %>
+      <div class="row male">
+        <p>MALE</p>
+        <div class="forms">
+          <p>Front</p>
+          <%= image_tag(@pokemon.front_default) %>
+          <%= image_tag(@pokemon.front_shiny) %>
+        </div>
+        <div class="forms">
+          <p>Back</p>
+          <%= image_tag(@pokemon.back_default) %>
+          <%= image_tag(@pokemon.back_shiny) %>
+        </div>
+        <div class="forms">
+          <p>HOME</p>
+          <%= image_tag(@pokemon.home_front_default) %>
+          <%= image_tag(@pokemon.home_front_shiny) %>
+        </div>
+      </div>
+      <div class="row female">
+        <p>FEMALE</p>
+        <div class="forms">
+          <p>Front</p>
+          <%= image_tag(@pokemon.front_female) %>
+          <%= image_tag(@pokemon.front_shiny_female) %>
+        </div>
+        <div class="forms">
+          <p>Back</p>
+          <%= image_tag(@pokemon.back_female) %>
+          <%= image_tag(@pokemon.back_female) %>
+        </div>
+        <div class="forms">
+          <p>HOME</p>
+          <%= image_tag(@pokemon.home_front_female) %>
+          <%= image_tag(@pokemon.home_front_shiny_female) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

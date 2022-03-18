@@ -28,26 +28,7 @@
     <% end %>
   </div>
   <div class="middle-container">
-    <div class="image-section">
-      <div class="official-artwork">
-        <p>Official Artwork</p>
-        <%= image_tag(@pokemon.official_artwork) %>
-      </div>
-      <div class="sprites-container">
-        <% if @pokemon.front_female.nil? == false %>
-          <p>Male forms</p>
-          <%= image_tag(@pokemon.front_default) %>
-          <%= image_tag(@pokemon.front_shiny) %>
-          <p>Female forms</p>
-          <%= image_tag(@pokemon.front_female) %>
-          <%= image_tag(@pokemon.front_shiny_female) %>
-        <% else %>
-          <p>Forms</p>
-          <%= image_tag(@pokemon.front_default) %>
-          <%= image_tag(@pokemon.front_shiny) %>
-        <% end %>
-      </div>
-    </div>
+    <%= render 'shared/forms_sprites' %>
     <div class="right-infos"></div>
   </div>
 </div>
