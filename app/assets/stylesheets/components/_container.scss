@@ -24,3 +24,21 @@
   grid-gap: 16px;
   margin: 16px 32px;
 }
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: rgb(94, 94, 94);
+}
+
+.middle-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content:  flex-start;
+  .img-container {
+    width: 25%;
+    height: 25%;
+  }
+}
