@@ -1,5 +1,6 @@
 // Import your components CSS files here.
 @import "alert";
+@import "arrow";
 @import "avatar";
 @import "card";
 @import "container";
@@ -7,3 +8,7 @@
 @import "navbar";
 @import "search_bar";
 @import "types_tags";
+
+p {
+  margin: 0;
+}

@@ -1,13 +1,51 @@
-<h1>Pokemons#show</h1>
-<p>Find me in app/views/pokemons/show.html.erb</p>
+<div class="container-mine">
+  <div class="top-container">
+    <% if @pokemon == Pokemon.first %>
+      <div class="arrow left">
+        <%= link_to image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/TriangleArrow-Left.svg/1200px-TriangleArrow-Left.svg.png"), pokemon_path(Pokemon.last) %>
+      </div>
+    <% else %>
+      <div class="arrow left">
+        <%= link_to image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/TriangleArrow-Left.svg/1200px-TriangleArrow-Left.svg.png"), pokemon_path(Pokemon.find_by(api_id: @pokemon.api_id - 1)) %>
+      </div>
+    <% end %>
+    <div class="pokemon-text-top">
+      <div class="pokemon-name">
+        <%= @pokemon.name.upcase %>
+      </div>
+      <div class="pokedex-number">
+        <%= "##{@pokemon.api_id}" %>
+      </div>
+    </div>
+    <% if @pokemon == Pokemon.last %>
+      <div class="arrow right">
+        <%= link_to image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/TriangleArrow-Right.svg/461px-TriangleArrow-Right.svg.png?20060109153651"), pokemon_path(Pokemon.first) %>
+      </div>
+    <% else %>
+      <div class="arrow right">
+        <%= link_to image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/TriangleArrow-Right.svg/461px-TriangleArrow-Right.svg.png?20060109153651"), pokemon_path(Pokemon.find_by(api_id: @pokemon.api_id + 1)) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="middle-container">
+    <%= render 'shared/forms_sprites' %>
+    <div class="right-infos">
+      <%= render 'shared/info_board' %>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 <!-- image_tag(type.scan(/name.{1}=>.{1}([a-zA-Z]+)/)[0][0]) -->
 
 
-Take *2, *4 : <%= @pokemon.weaknesses_damage_taken %>
+<!--Take *2, *4 : <%= @pokemon.weaknesses_damage_taken %>
 <br>
 Take *1/2, *1/4, *0 : <%= @pokemon.resistances_damage_taken %>
 <br>
 Give *2 : <%= @pokemon.offense_damage_given %>
 <br>
-Give *1/2, *1/4, *0 :<%= @pokemon.resistances_damage_given %>
+Give *1/2, *1/4, *0 :<%= @pokemon.resistances_damage_given %> -->

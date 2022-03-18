@@ -1,5 +1,6 @@
 class Pokemon < ApplicationRecord
   has_many :pokemon_stats
+  belongs_to :species
   
   def weaknessestype1
     type1 = Type.find_by(name: self.type_1)
