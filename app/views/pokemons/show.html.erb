@@ -3,7 +3,7 @@
     <% if @pokemon == Pokemon.first %>
       <div class="arrow left">
         <%= link_to image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/TriangleArrow-Left.svg/1200px-TriangleArrow-Left.svg.png"), pokemon_path(Pokemon.last) %>
-        <%= link_to image_tag(Pokemon.last.front_default, class:"pokemon-image-navbar"), pokemon_path(Pokemon.last) %>
+        <%= link_to image_tag(Pokemon.last.official_artwork, class:"pokemon-image-navbar"), pokemon_path(Pokemon.last) %>
       </div>
     <% else %>
       <div class="arrow left">
