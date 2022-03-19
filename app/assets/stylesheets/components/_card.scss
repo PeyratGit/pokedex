@@ -1,6 +1,6 @@
 .pokemon-card {
   width: 251px;
-  height: 172px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +25,8 @@
     display: flex;
     align-items: center;
     height: 21px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     color: rgb(11,28,48);
     p {
       font-family: "BreulGroteskB-bold";
