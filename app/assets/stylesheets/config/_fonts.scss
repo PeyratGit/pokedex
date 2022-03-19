@@ -14,3 +14,9 @@ $headers-font: "Nunito", "Helvetica", "sans-serif";
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+
+@font-face { font-family: "BreulGroteskA"; src: font-url('BreulGroteskA-Bold.ttf') format('truetype'); }
+@font-face { font-family: "BreulGroteskB"; src: font-url('BreulGroteskB-SemiLight.ttf') format('truetype'); }
+@font-face { font-family: "BreulGroteskB-bold"; src: font-url('BreulGroteskB-Bold.ttf') format('truetype'); }
+@font-face { font-family: "Ramabhadra"; src: font-url('Ramabhadra-Regular.ttf') format('truetype'); }
