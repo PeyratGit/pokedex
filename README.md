@@ -1,3 +1,3 @@
 ## Pokedex
-**In Progress**
+-In Progress-
 Pokedex website to train myself.
