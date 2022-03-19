@@ -1,7 +1,10 @@
 .tag {
+  margin-right: 2.5px;
+  margin-left: 2.5px;
   width: fit-content;
   padding: 5px 5px 5px 2px;
-  height: 12.5px;
+  // height: 12.5px;
+  height: 30px;
   border-radius: 7px;
   display: flex;
   flex-direction: row;
@@ -9,16 +12,18 @@
   align-items: center;
   p {
     width: min-content;
-    height: 10px;
+    height: min-content;
     color: #FFFFFF;
-    font-size: 7px;
+    font-size: 16px;
     text-align: left;
     margin-bottom: 0 !important;
+    font-family: "BreulGroteskB";
   }
   img {
-    width: 11px !important;
-    height: 11px !important;
+    width: 16px !important;
+    height: 16px !important;
   }
+  /*
   &.type_1 {
     position:absolute;
     bottom: 5px;
@@ -29,6 +34,7 @@
     bottom: 20px;
     right: 5px;
   }
+  */
   &.grass {
     background-color: #38BF4B;
   }
