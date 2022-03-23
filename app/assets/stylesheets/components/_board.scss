@@ -1,0 +1,52 @@
+.board {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .types {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .overview {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .general-infos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .row {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      .item {
+        width: 50%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        .number {
+          width: 159px;
+          height: 37px;
+          background-color: rgba(196, 196, 196, 0.5);
+          border-radius: 19px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .logos {
+        img {
+          width: 28px;
+        }
+      }
+    }
+  }
+}

@@ -1,21 +1,57 @@
 <div class="board">
+  <div class="animated-sprite">
+    <%= image_tag("https://projectpokemon.org/images/normal-sprite/#{@pokemon.name}.gif") %>
+  </div>
   <div class="name">
-    <p>Name : <%= @pokemon.name.capitalize %></p>
+    <h2><%= @pokemon.name.capitalize %></h2>
+  </div>
+  <div class="pokedex-number">
+    <p>#<%= @pokemon.order %></p>
   </div>
   <div class="types">
     <% if @pokemon.type_2.nil? %>
-      <p>Type : <%= image_tag(@pokemon.type_1) %></p>
+      <%= render partial: "tags/#{@pokemon.type_1}_tag", locals: {myclass: 'type_1'} %></p>
     <% else %>
-      <p>Types : <%= image_tag(@pokemon.type_1) %> <%= image_tag(@pokemon.type_2) %></p>
+      <%= render partial: "tags/#{@pokemon.type_1}_tag", locals: {myclass: 'type_1'} %>
+      <%= render partial: "tags/#{@pokemon.type_2}_tag", locals: {myclass: 'type_2'} %>
     <% end %>
   </div>
-  <div class="weight">
-    <p>Weight : <%= @pokemon.weight.to_i/10.0 %>kg</p>
+  <div class="overview">
+    <h6>POKEDEX ENTRY</h6>
+    <p><%= SpeciesFlavorText.find_by(species_id: @pokemon.species_id).flavor_text.split(' ').join(" ") %></p> <!-- Used split then join to remove \f escape character --></p>
   </div>
-  <div class="height">
-    <p>Height : <%= @pokemon.height.to_i/10.0 %>m</p>
+  <div class="abilities">
   </div>
-  <div class="description">
-    <p>Description : <%= SpeciesFlavorText.find_by(species_id: @pokemon.species_id).flavor_text.split(' ').join(" ") %></p> <!-- Used split then join to remove \f escape character -->
+  <div class="general-infos">
+    <div class="row">
+      <div class="height item">
+        <p>HEIGHT</p>
+        <div class="height number">
+          <%= @pokemon.height %>
+        </div>
+      </div>
+      <div class="weight item">
+        <p>WEIGHT</p>
+        <div class="weight number">
+          <%= @pokemon.weight %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="weaknesses item">
+        <p>WEAKNESSES</p>
+        <div class="weaknesses logos number">
+          <% @pokemon.weaknesses_damage_taken.each_key do |type| %>
+            <%= image_tag(type) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="base-exp item">
+        <p>BASE EXP</p>
+        <div class="base-exp number">
+          <%= @pokemon.base_experience %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
