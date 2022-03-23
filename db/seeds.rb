@@ -197,3 +197,17 @@ if PokemonStat.count != (Pokemon.count * 6)
   end
   puts "Pokemon stats created !"
 end
+
+if SpeciesFlavorText.count != Species.count
+  puts "Destroying flavor texts..."
+  SpeciesFlavorText.destroy_all
+  puts "Creating flavor texts..."
+  Species.count.times do |i|
+    specie_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{i+1}/").read)
+    SpeciesFlavorText.create(
+      species_id: Species.find_by(api_id: (i + 1)).id,
+      flavor_text: specie_api['flavor_text_entries'][0]['flavor_text']
+    )
+  end
+  puts "Flavor texts created !"
+end
