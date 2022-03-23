@@ -29,6 +29,18 @@
       text-align: center;
       .item {
         width: 50%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        .number {
+          width: 159px;
+          height: 37px;
+          background-color: rgba(196, 196, 196, 0.5);
+          border-radius: 19px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
       .logos {
         img {

@@ -40,7 +40,7 @@
     <div class="row">
       <div class="weaknesses item">
         <p>WEAKNESSES</p>
-        <div class="weaknesses logos">
+        <div class="weaknesses logos number">
           <% @pokemon.weaknesses_damage_taken.each_key do |type| %>
             <%= image_tag(type) %>
           <% end %>
