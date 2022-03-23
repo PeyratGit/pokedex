@@ -15,4 +15,7 @@
   <div class="height">
     <p>Height : <%= @pokemon.height.to_i/10.0 %>m</p>
   </div>
+  <div class="description">
+    <p>Description : <%= SpeciesFlavorText.find_by(species_id: @pokemon.species_id).flavor_text.split(' ').join(" ") %></p> <!-- Used split then join to remove \f escape character -->
+  </div>
 </div>
