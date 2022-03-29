@@ -27,13 +27,13 @@
       <div class="height item">
         <p>HEIGHT</p>
         <div class="height number">
-          <%= @pokemon.height %>
+          <%= @pokemon.height %>m
         </div>
       </div>
       <div class="weight item">
         <p>WEIGHT</p>
         <div class="weight number">
-          <%= @pokemon.weight %>
+          <%= @pokemon.weight %>Kg
         </div>
       </div>
     </div>
@@ -50,6 +50,24 @@
         <p>BASE EXP</p>
         <div class="base-exp number">
           <%= @pokemon.base_experience %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="weaknesses item">
+        <p>RESISTANCES</p>
+        <div class="weaknesses logos number">
+          <% @pokemon.resistances_damage_taken.each_key do |type| %>
+            <%= image_tag(type) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="weaknesses item">
+        <p>EFFECTIVE AGAINST</p>
+        <div class="weaknesses logos number">
+          <% @pokemon.offense_damage_given.each_key do |type| %>
+            <%= image_tag(type) %>
+          <% end %>
         </div>
       </div>
     </div>
