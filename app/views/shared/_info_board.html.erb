@@ -20,9 +20,15 @@
     <p>POKEDEX ENTRY</p>
     <p style="color: #404040; width:50%;"><%= SpeciesFlavorText.find_by(species_id: @pokemon.species_id).flavor_text.split(' ').join(" ") %></p> <!-- Used split then join to remove \f escape character --></p>
   </div>
-  <div class="abilities">
-  </div>
   <div class="general-infos">
+    <div class="row">
+      <div class="abilities item" style="width: 100%;">
+        <p>ABILITIES</p>
+        <div class="small-row">
+          <%= render "shared/abilities" %>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="height item">
         <p>HEIGHT</p>

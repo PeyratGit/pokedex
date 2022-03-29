@@ -5,8 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-PokemonStat.destroy_all
-Pokemon.destroy_all
 
 if Species.count != 6
   puts "Destroying species..."
@@ -210,4 +208,42 @@ if SpeciesFlavorText.count != Species.count
     )
   end
   puts "Flavor texts created !"
+end
+
+if Ability.count != 267
+  puts "Creating Abilities..."
+  267.times do |i|
+    ability_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/ability/#{i+1}").read)
+    Ability.create(
+      name: ability_api['name'],
+      is_main_series: ability_api['is_main_series'],
+      api_id: ability_api["id"]
+    )
+  end
+  puts "Abilities created !"
+end
+
+if PokemonAbility.count != (Pokemon.count * 2)
+  puts "Creating pokemon abilities..."
+  Pokemon.all.each do |pokemon|
+    puts "This is the pokemon : name : #{pokemon.name}, api_id : #{pokemon.api_id}"
+    pokemon_api = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon/#{pokemon.api_id}/").read)
+    puts "Here's the api : #{pokemon_api["abilities"]}"
+    puts "Here's the ability id : #{pokemon_api["abilities"][0]["ability"]["url"].match(/\d{2,3}/)[0].to_i}"
+    puts "Here's the hidden : #{pokemon_api["abilities"][0]["is_hidden"]}"
+    puts "Here's the slot : #{pokemon_api["abilities"][0]["slot"]}"
+    PokemonAbility.create(
+      pokemon_id: pokemon.id,
+      ability_id: Ability.find(pokemon_api["abilities"][0]["ability"]["url"].match(/\d{2,3}/)[0].to_i).id,
+      is_hidden: pokemon_api["abilities"][0]["is_hidden"],
+      slot: pokemon_api["abilities"][0]["slot"]
+    )
+    PokemonAbility.create(
+      pokemon_id: pokemon.id,
+      ability_id: Ability.find(pokemon_api["abilities"][1]["ability"]["url"].match(/\d{2,3}/)[0].to_i).id,
+      is_hidden: pokemon_api["abilities"][1]["is_hidden"],
+      slot: pokemon_api["abilities"][1]["slot"]
+    )
+  end
+  puts "Pokemon abilities created !"
 end

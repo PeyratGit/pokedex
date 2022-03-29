@@ -1,0 +1,33 @@
+<% if @pokemon.pokemon_abilities.first.is_hidden == false && @pokemon.pokemon_abilities.last.is_hidden == false %>
+  <div class="ability">
+    <%= @pokemon.abilities.first.name.capitalize %>
+  </div>
+  <div class="ability">
+    <%= @pokemon.abilities.last.name.capitalize %>
+  </div>
+<% elsif @pokemon.pokemon_abilities.first.is_hidden == false && @pokemon.pokemon_abilities.last.is_hidden == true %>
+  <div class="ability">
+    <%= Ability.find(@pokemon.pokemon_abilities.first.ability_id).name.capitalize %>
+  </div>
+  <div class="ability hidden">
+    <%= Ability.find(@pokemon.pokemon_abilities.last.ability_id).name.capitalize %>
+    <i class="fa-regular fa-eye-slash"></i>
+  </div>
+<% elsif  @pokemon.pokemon_abilities.first.is_hidden == true && @pokemon.pokemon_abilities.last.is_hidden == false%>
+  <div class="ability">
+    <%= Ability.find(@pokemon.pokemon_abilities.last.ability_id).name.capitalize %>
+  </div>
+  <div class="ability hidden">
+    <%= Ability.find(@pokemon.pokemon_abilities.first.ability_id).name.capitalize %>
+    <i class="fa-regular fa-eye-slash"></i>
+  </div>
+<% else %>
+  <div class="ability hidden">
+    <%= @pokemon.abilities.first.name.capitalize %>
+    <i class="fa-regular fa-eye-slash"></i>
+  </div>
+  <div class="ability hidden">
+    <%= @pokemon.abilities.last.name.capitalize %>
+    <i class="fa-regular fa-eye-slash"></i>
+  </div>
+<% end %>
