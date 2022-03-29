@@ -71,31 +71,66 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="health stat">
-        <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "hp")).base_stat %>
+    <div class="row stats">
+      <div class="stat">
+        <div class="bubble">
+          <p>HP</p>
+        </div>
+        <div class="value">
+          <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "hp")).base_stat %>
+        </div>
       </div>
-      <div class="attack stat">
-        <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "attack")).base_stat %>
+      <div class="stat">
+        <div class="bubble">
+          <p>ATK</p>
+        </div>
+        <div class="value">
+          <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "attack")).base_stat %>
+        </div>
       </div>
-      <div class="defense stat">
-        <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "defense")).base_stat %>
+      <div class="stat">
+        <div class="bubble">
+          <p>DEF</p>
+        </div>
+        <div class="value">
+          <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "defense")).base_stat %>
+        </div>
       </div>
-      <div class="special-attack stat">
-        <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "special-attack")).base_stat %>
+      <div class="stat">
+        <div class="bubble">
+          <p>SpA</p>
+        </div>
+        <div class="value">
+          <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "special-attack")).base_stat %>
+        </div>
       </div>
-      <div class="special-defense stat">
-        <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "special-defense")).base_stat %>
+      <div class="stat">
+        <div class="bubble">
+          <p>SpD</p>
+        </div>
+        <div class="value">
+          <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "special-defense")).base_stat %>
+        </div>
       </div>
-      <div class="speed stat">
-        <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "speed")).base_stat %>
+      <div class="stat">
+        <div class="bubble">
+          <p>SPD</p>
+        </div>
+        <div class="value">
+          <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "speed")).base_stat %>
+        </div>
       </div>
-      <div class="total stat">
+      <div class="stat">
+        <div class="bubble">
+          <p>TOT</p>
+        </div>
         <% total = 0 %>
         <% @pokemon.pokemon_stats.each do |stat| %>
           <% total += stat["base_stat"] %>
         <% end %>
-        <%= total %>
+        <div class="value">
+          <%= total %>
+        </div>
       </div>
     </div>
   </div>
