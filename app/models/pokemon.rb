@@ -1,7 +1,8 @@
 class Pokemon < ApplicationRecord
   has_many :pokemon_stats
   belongs_to :species
-
+  has_many :pokemon_abilities
+  has_many :abilities, through: :pokemon_abilities
   def weaknessestype1
     type1 = Type.find_by(name: self.type_1)
     type1.double_damage_from.each do |type|

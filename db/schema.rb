@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_124117) do
+ActiveRecord::Schema.define(version: 2022_03_29_141849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "abilities", force: :cascade do |t|
+    t.string "name"
+    t.integer "generation_id"
+    t.boolean "is_main_series"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "api_id"
+  end
+
+  create_table "pokemon_abilities", force: :cascade do |t|
+    t.bigint "pokemon_id", null: false
+    t.bigint "ability_id", null: false
+    t.boolean "is_hidden"
+    t.integer "slot"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ability_id"], name: "index_pokemon_abilities_on_ability_id"
+    t.index ["pokemon_id"], name: "index_pokemon_abilities_on_pokemon_id"
+  end
 
   create_table "pokemon_stats", force: :cascade do |t|
     t.bigint "pokemon_id", null: false
@@ -98,6 +118,8 @@ ActiveRecord::Schema.define(version: 2022_03_23_124117) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "pokemon_abilities", "abilities"
+  add_foreign_key "pokemon_abilities", "pokemons"
   add_foreign_key "pokemon_stats", "pokemons"
   add_foreign_key "pokemon_stats", "stats"
   add_foreign_key "pokemons", "species"
