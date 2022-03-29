@@ -17,8 +17,8 @@
     <% end %>
   </div>
   <div class="overview">
-    <h6>POKEDEX ENTRY</h6>
-    <p><%= SpeciesFlavorText.find_by(species_id: @pokemon.species_id).flavor_text.split(' ').join(" ") %></p> <!-- Used split then join to remove \f escape character --></p>
+    <p>POKEDEX ENTRY</p>
+    <p style="color: #404040; width:50%;"><%= SpeciesFlavorText.find_by(species_id: @pokemon.species_id).flavor_text.split(' ').join(" ") %></p> <!-- Used split then join to remove \f escape character --></p>
   </div>
   <div class="abilities">
   </div>
@@ -27,13 +27,13 @@
       <div class="height item">
         <p>HEIGHT</p>
         <div class="height number">
-          <%= @pokemon.height %>
+          <%= @pokemon.height %>m
         </div>
       </div>
       <div class="weight item">
         <p>WEIGHT</p>
         <div class="weight number">
-          <%= @pokemon.weight %>
+          <%= @pokemon.weight %>Kg
         </div>
       </div>
     </div>
@@ -50,6 +50,91 @@
         <p>BASE EXP</p>
         <div class="base-exp number">
           <%= @pokemon.base_experience %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="weaknesses item">
+        <p>RESISTANCES</p>
+        <div class="weaknesses logos logos-row">
+          <% @pokemon.resistances_damage_taken.each_key do |type| %>
+            <%= image_tag(type) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="weaknesses item">
+        <p>EFFECTIVE AGAINST</p>
+        <div class="weaknesses logos logos-row">
+          <% @pokemon.offense_damage_given.each_key do |type| %>
+            <%= image_tag(type) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row stats">
+      <div class="wide-column">
+        <div class="row-title">STATS</div>
+        <div class="gigarow">
+          <div class="stat">
+            <div class="bubble" style="background-color: #df2140">
+              <p>HP</p>
+            </div>
+            <div class="value">
+              <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "hp")).base_stat %>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="bubble" style="background-color: #ff9a4d">
+              <p>ATK</p>
+            </div>
+            <div class="value">
+              <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "attack")).base_stat %>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="bubble" style="background-color: #ffdc4c">
+              <p>DEF</p>
+            </div>
+            <div class="value">
+              <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "defense")).base_stat %>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="bubble" style="background-color: #85ddff">
+              <p>SpA</p>
+            </div>
+            <div class="value">
+              <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "special-attack")).base_stat %>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="bubble" style="background-color: #a8ef92">
+              <p>SpD</p>
+            </div>
+            <div class="value">
+              <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "special-defense")).base_stat %>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="bubble" style="background-color: #f48a98">
+              <p>SPD</p>
+            </div>
+            <div class="value">
+              <%= @pokemon.pokemon_stats.find_by(stat_id: Stat.find_by(name: "speed")).base_stat %>
+            </div>
+          </div>
+          <div class="stat" style="background-color: #90b3ff;">
+            <div class="bubble" style="background-color: #7295dc;">
+              <p>TOT</p>
+            </div>
+            <% total = 0 %>
+            <% @pokemon.pokemon_stats.each do |stat| %>
+              <% total += stat["base_stat"] %>
+            <% end %>
+            <div class="value">
+              <%= total %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

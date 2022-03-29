@@ -1,14 +1,17 @@
 .board {
+  margin-top: 20px;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-weight: bold;
   .types {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 20px;
   }
   .overview {
     margin-top: 10px;
@@ -16,6 +19,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-bottom: 20px;
   }
   .general-infos {
     width: 100%;
@@ -27,11 +31,26 @@
       display: flex;
       flex-direction: row;
       text-align: center;
+      justify-content: center;
+      &.stats {
+        justify-content: center;
+      }
       .item {
-        width: 50%;
+        width: 28%;
         align-items: center;
         display: flex;
         flex-direction: column;
+        margin-bottom: 20px;
+        .logos-row {
+          width: min-content;
+          height: 37px;
+          background-color: rgba(196, 196, 196, 0.5);
+          border-radius: 19px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 10px;
+        }
         .number {
           width: 159px;
           height: 37px;
@@ -45,6 +64,42 @@
       .logos {
         img {
           width: 28px;
+        }
+      }
+      .widecolumn {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .gigarow {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+      }
+      .stat {
+        background-color: rgba(196, 196, 196, 0.5);
+        border-radius: 20px;
+        width: min-content;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+        .bubble {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 5px;
+          p {
+            color: white;
+            font-size: 12px;
+          }
         }
       }
     }
