@@ -1,0 +1,25 @@
+<div class="cards-container" data-refresh-list-target="list">
+  <% @pokemons.each do |pokemon| %>
+    <%= link_to pokemon_path(pokemon) do %>
+      <div class="pokemon-card">
+        <div class="pokemon-card-image">
+          <%= image_tag(pokemon.official_artwork) %>
+        </div>
+        <div class="pokemon-card-number">
+          <p>N°<%= pokemon.api_id %></p>
+        </div>
+        <div class="pokemon-card-name">
+          <p><%= pokemon.name.capitalize %></p>
+        </div>
+        <div class="pokemon-card-types">
+          <% if pokemon.type_2.nil? %>
+            <%= render partial: "tags/#{pokemon.type_1}_tag.html.erb", locals: {myclass: 'type_1'} %>
+          <% else %>
+            <%= render partial: "tags/#{pokemon.type_1}_tag.html.erb", locals: {myclass: 'type_1'} %>
+            <%= render partial: "tags/#{pokemon.type_2}_tag.html.erb", locals: {myclass: 'type_2'} %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
