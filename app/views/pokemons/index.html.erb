@@ -1,10 +1,22 @@
-<div class="container-mine">
-  <h1>POKEDEX</h1>
+<div class="container-mine" data-controller="refresh-list">
+  <%= link_to pokemons_path do %>
+    <h1>POKEDEX</h1>
+  <% end %>
   <div class="search-bar">
+    <%= form_with url: pokemons_path, method: :get, html: { class: 'mb-5 search-form', data: { refresh_list_target: 'form' } } do |f| %>
+      <%= f.text_field :query,
+                      class: "form-control",
+                      placeholder: 'Search a Pokemon',
+                      value: params[:query],
+                      data: {
+                        refresh_list_target: 'searchInput',
+                        action: "keyup->refresh-list#update"
+                      } %>
+    <% end %>
   </div>
   <div class="filters-container">
   </div>
-  <div class="cards-container">
+  <div class="cards-container" data-refresh-list-target="list">
     <% @pokemons.each do |pokemon| %>
       <%= link_to pokemon_path(pokemon) do %>
         <div class="pokemon-card">
