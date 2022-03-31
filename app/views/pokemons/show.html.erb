@@ -12,12 +12,11 @@
       </div>
     <% end %>
     <div class="pokemon-text-top">
-      <div class="pokemon-name">
-        <%= @pokemon.name.upcase %>
-      </div>
-      <div class="pokedex-number">
-        <%= "##{@pokemon.api_id}" %>
-      </div>
+      <%= link_to pokemons_path do %>
+        <div class="pokemon-name">
+          HOME
+        </div>
+      <% end %>
     </div>
     <% if @pokemon == Pokemon.last %>
       <div class="arrow right">

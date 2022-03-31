@@ -1,5 +1,7 @@
 <div class="container-mine" data-controller="refresh-list">
-  <h1>POKEDEX</h1>
+  <%= link_to pokemons_path do %>
+    <h1>POKEDEX</h1>
+  <% end %>
   <div class="search-bar">
     <%= form_with url: pokemons_path, method: :get, html: { class: 'mb-5 search-form', data: { refresh_list_target: 'form' } } do |f| %>
       <%= f.text_field :query,
