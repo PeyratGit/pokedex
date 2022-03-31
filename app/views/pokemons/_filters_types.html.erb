@@ -1,0 +1,21 @@
+<div class="filters-container">
+  <form class="filter_form", method="get">
+    <% Type.all.each do |a| %>
+      <% if params[:types].present? %>
+        <% params[:types].each do |type| %>
+          <% if type == a.name %>
+            <%= check_box_tag("types[]", a.name, true) %>
+            <%=h a.name %>
+          <% else %>
+            <%= check_box_tag("types[]", a.name, false) %>
+            <%=h a.name %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= check_box_tag("types[]", a.name) %>
+        <%=h a.name %>
+      <% end %>
+    <% end %>
+    <input type="submit" value="Filter" />
+  </form>
+</div>
