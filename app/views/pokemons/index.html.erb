@@ -16,16 +16,19 @@
   </div>
   <div class="filters-container">
     <form class="filter_form", method="get">
-      <% Type.all.each do |a| %>
-        <% if params[:types].present? %>
-          <% if params[:types][0] == a.name || params[:types][1] == a.name %>
+      <% if params[:types].present? %>
+        <% params[:types].each do |type| %>
+          <% Type.where(name: type).each do |a| %>
             <%= check_box_tag("types[]", a.name, true ) %>
             <%=h a.name %>
-          <% else %>
-            <%= check_box_tag("types[]", a.name, false ) %>
-            <%=h a.name %>
           <% end %>
-        <% else %>
+        <% end %>
+        <% Type.where.not(name: params[:types]).each do |a| %>
+          <%= check_box_tag("types[]", a.name, false ) %>
+          <%=h a.name %>
+        <% end %>
+      <% else %>
+        <% Type.all.each do |a| %>
           <%= check_box_tag("types[]", a.name) %>
           <%=h a.name %>
         <% end %>
