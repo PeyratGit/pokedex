@@ -5,6 +5,14 @@ class PokemonsController < ApplicationController
       @pokemons = @pokemons.where('name ILIKE ?', "%#{params[:query]}%")
     end
 
+    if params[:types].present?
+      if params[:types][1].nil?
+        @pokemons = @pokemons.where(type_1: params[:types][0]).or(@pokemons.where(type_2: params[:types][0]))
+      else
+        @pokemons = @pokemons.where(type_1: params[:types][0]).or(@pokemons.where(type_1: params[:types][1])).or(@pokemons.where(type_2: params[:types][0])).or(@pokemons.where(type_2: params[:types][1]))
+      end
+    end
+
     respond_to do |format|
       format.html # Follow regular flow of Rails
       format.text { render partial: 'list.html', locals: { pokemons: @pokemons } }
