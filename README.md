@@ -1,7 +1,7 @@
 ## Pokedex
 ###### -In Progress-  
 ## Description  
-Pokedex website to train myself.  
+Pokedex website to train myself to work with a large database.  
 ## Actual features  
  - See all pokemons with name, pokedex number, types, image  
  - See details for a pokemon  
