@@ -16,6 +16,7 @@ import "controllers"
 import "bootstrap"
 
 import { autocompleteSearch } from "../plugins/autocomplete"
+import "../plugins/checkbox_dropdown"
 
 document.addEventListener('turbolinks:load', () => {
   autocompleteSearch();

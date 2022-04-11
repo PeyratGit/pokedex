@@ -16,26 +16,37 @@
     <% end %>
   </div>
   <div class="filters-container">
-    <form class="filter_form", method="get">
-      <% if params[:types].present? %>
-        <% params[:types].each do |type| %>
-          <% Type.where(name: type).each do |a| %>
-            <%= check_box_tag("types[]", a.name, true ) %>
-            <%=h a.name %>
+    <div id="checkbox-dropdown" class="dropdown-check-list" tabindex="100">
+      <span class="anchor">Select Types</span>
+      <form class="filter_form", method="get">
+        <ul class="items">
+          <% if params[:types].present? %>
+            <% params[:types].each do |type| %>
+              <% Type.where(name: type).each do |a| %>
+                <li>
+                  <%= check_box_tag("types[]", a.name, true ) %>
+                  <%=h a.name %>
+                </li>
+              <% end %>
+            <% end %>
+            <% Type.where.not(name: params[:types]).each do |a| %>
+              <li>
+                <%= check_box_tag("types[]", a.name, false ) %>
+                <%=h a.name %>
+              </li>
+            <% end %>
+          <% else %>
+            <% Type.all.each do |a| %>
+              <li>
+                <%= check_box_tag("types[]", a.name) %>
+                <%=h a.name %>
+              </li>
+            <% end %>
           <% end %>
-        <% end %>
-        <% Type.where.not(name: params[:types]).each do |a| %>
-          <%= check_box_tag("types[]", a.name, false ) %>
-          <%=h a.name %>
-        <% end %>
-      <% else %>
-        <% Type.all.each do |a| %>
-          <%= check_box_tag("types[]", a.name) %>
-          <%=h a.name %>
-        <% end %>
-      <% end %>
-      <input type="submit" value="Filter" />
-    </form>
+          <input type="submit" value="Filter" />
+        </ul>
+      </form>
+    </div>
   </div>
   <div class="cards-container" data-refresh-list-target="list">
     <% @pokemons.each do |pokemon| %>
