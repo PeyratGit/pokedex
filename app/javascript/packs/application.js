@@ -14,3 +14,9 @@ ActiveStorage.start()
 
 import "controllers"
 import "bootstrap"
+
+import { autocompleteSearch } from "../plugins/autocomplete"
+
+document.addEventListener('turbolinks:load', () => {
+  autocompleteSearch();
+})
