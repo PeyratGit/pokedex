@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "list", "searchInput", "checkboxInput"];
+  static targets = ["form", "list", "searchInput", "checkboxInput", "hiddenInputTypes"];
   update() {
     let url = window.location.href;
     if (/types/.test(url)) {
