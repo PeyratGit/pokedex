@@ -7,3 +7,6 @@ Pokedex website to train myself to work with a large database.
  - See details for a pokemon  
      - Actual infos : Name, pokedex number, types, weight, height, sprites, abilities, weaknesses, strengths, description, base exp, base stats.
  - Navigate through pokemons via the navbar with previous/next pokemon in pokedex
+ - Search for a pokemon by name
+     - Autocomplete when typing
+ - Filter pokemons by types
