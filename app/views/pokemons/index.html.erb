@@ -13,9 +13,6 @@
                         refresh_list_target: 'searchInput',
                         action: "keyup->refresh-list#update"
                       } %>
-      <% if params[:types].nil? == false %>
-        <%= f.hidden_field :types, value: params[:types], data: { refresh_list_target: "hiddenInputTypes" } %>
-      <% end %>
     <% end %>
   </div>
   <div class="filters-container">

@@ -3,21 +3,7 @@ class PokemonsController < ApplicationController
     @pokemons = Pokemon.all
     @pokemons_names = Pokemon.pluck(:name).sort
     if params[:query].present?
-      if params[:types].present?
-        @pokemons = Pokemon.all
-        @pokemons_filtered = []
-        if params[:types][1].nil?
-          @pokemons = @pokemons.where(type_1: params[:types][0]).or(@pokemons.where(type_2: params[:types][0]))
-        else
-          params[:types].each do |type|
-            @pokemons_filtered += @pokemons.where(type_1: type).or(@pokemons.where(type_2: type))
-          end
-          @pokemons = @pokemons.where(id: @pokemons_filtered.map!(&:id)).order(:id)
-        end
-        @pokemons = @pokemons.where('name ILIKE ?', "%#{params[:query]}%")
-      else
-        @pokemons = @pokemons.where('name ILIKE ?', "%#{params[:query]}%")
-      end
+      @pokemons = @pokemons.where('name ILIKE ?', "%#{params[:query]}%")
     end
 
     if params[:types].present?
