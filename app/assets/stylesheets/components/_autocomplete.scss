@@ -1,0 +1,14 @@
+.autocomplete-suggestions {
+  border-radius: 10px !important;
+  border-top-left-radius: 0 !important;
+  z-index: 1  !important;
+  top: 118px  !important;
+  left: 490px !important;
+  width: 482px  !important;
+  border: 0  !important;
+  .autocomplete-suggestion {
+    b {
+      color: #ff9715;
+    }
+  }
+}
