@@ -41,12 +41,12 @@
     <% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{Species.find(@pokemon.species_id).api_id}/").read)["evolution_chain"]["url"]; %>
     <% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
     <% if parsed_chain["chain"]["species"]["name"] == @pokemon.name %>
-      <p>Evolves into : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]; %> </p>
+      <p>Evolves into : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]%> at level <%= parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
     <% elsif parsed_chain["chain"]["evolves_to"][0]["species"]["name"] == @pokemon.name %>
-      <p>Evolution of : <%= parsed_chain["chain"]["species"]["name"]; %></p>
-      <p>Evolves into : <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"]; %> </p>
+      <p>Evolved from : <%= parsed_chain["chain"]["species"]["name"] %> at level : <%= parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
+      <p>Evolves into : <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"]%> at level <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"] %> </p>
     <% else %>
-      <p>Evolution of : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]; %></p>
+      <p>Evolved from : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]%> at level : <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
       <p>Does not evolve</p>
     <% end %>
   </div>
