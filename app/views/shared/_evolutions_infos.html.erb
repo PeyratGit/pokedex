@@ -1,21 +1,33 @@
-<div class="evolution">
-    <% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{Species.find(@pokemon.species_id).api_id}/").read)["evolution_chain"]["url"]; %>
-    <% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
+<% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{Species.find(@pokemon.species_id).api_id}/").read)["evolution_chain"]["url"]; %>
+<% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
 
-    <% if parsed_chain["chain"]["evolves_to"][0]["evolves_to"].empty? == false %> <%# If there is more than one evolution %>
-      <% if parsed_chain["chain"]["species"]["name"] == @pokemon.name %>
-        <p>Evolves into : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]%> at level <%= parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
-      <% elsif parsed_chain["chain"]["evolves_to"][0]["species"]["name"] == @pokemon.name %>
-        <p>Evolved from : <%= parsed_chain["chain"]["species"]["name"] %> at level : <%= parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
-        <p>Evolves into : <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"]%> at level <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"] %> </p>
-      <% else %>
-        <p>Evolved from : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]%> at level : <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
-      <% end %>
-    <% elsif parsed_chain["chain"]["evolves_to"][0]["evolves_to"].empty? %> <%# If there is only one evolution %>
-      <% if parsed_chain["chain"]["species"]["name"] == @pokemon.name %>
-        <p>Evolves into : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]%> at level <%= parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
-      <% else %>
-        <p>Evolved from : <%= parsed_chain["chain"]["evolves_to"][0]["species"]["name"]%> at level : <%= parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"] %></p>
-      <% end %>
-    <% end %>
+<%# Evolve only from level  %>
+<% if parsed_chain["chain"]["evolves_to"][0]["evolves_to"].empty? == false %> <%# If there is more than one evolution %>
+  <% @base_evolution = parsed_chain["chain"]["species"]["name"] %>
+  <% @first_evolution = parsed_chain["chain"]["evolves_to"][0]["species"]["name"] %>
+  <% @first_evolution_level = parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %>
+  <% @second_evolution = parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"] %>
+  <% @second_evolution_level = parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"] %>
+<% elsif parsed_chain["chain"]["evolves_to"][0]["evolves_to"].empty? %> <%# If there is only one evolution %>
+  <% @base_evolution = parsed_chain["chain"]["species"]["name"] %>
+  <% @first_evolution = parsed_chain["chain"]["evolves_to"][0]["species"]["name"] %>
+  <% @first_evolution_level = parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %>
+<% end %>
+
+<div class="evolutions">
+  <div class="evolution">
+    <%= image_tag(Pokemon.find_by(name: @base_evolution).front_default) %>
   </div>
+  <div class="level">
+    lv.<%= @first_evolution_level %>
+  </div>
+  <div class="evolution">
+    <%= image_tag(Pokemon.find_by(name: @first_evolution).front_default) %>
+  </div>
+  <div class="level">
+    lv.<%= @second_evolution_level %>
+  </div>
+  <div class="evolution">
+    <%= image_tag(Pokemon.find_by(name: @second_evolution).front_default) %>
+  </div>
+</div>
