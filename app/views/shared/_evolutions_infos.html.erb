@@ -32,6 +32,9 @@
   </div>
 </div>
 
+<% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/280/").read)["evolution_chain"]["url"]; %>
+<% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
+
 <% @base_pokemon = parsed_chain["chain"]["species"]["name"] %>
 
 <% evolutions = [] %>
@@ -41,7 +44,7 @@
   <% conditions_count = 0 %>
   <% @evolutions_array = parsed_chain["chain"]["evolves_to"]%>
   <% @evolutions_array.each do |evolution| %>
-    <% evolution_hash = {name: evolution["species"]["name"], conditions: [] } %>
+    <% evolution_hash = {name: evolution["species"]["name"], nested: false, conditions: [] } %>
     <% evolution["evolution_details"][-1].each do |key, value| %>
       <% if value != nil && value != false && value != ""%>
         <% evolution_hash[:conditions] << {key => value} %>
@@ -51,7 +54,7 @@
     <% next_evolutions_count = evolution["evolves_to"].length %>
     <% if next_evolutions_count > 0 %>
       <% evolution["evolves_to"].each do |next_evolution| %>
-        <% next_evolution_hash = {name: next_evolution["species"]["name"], conditions: []} %>
+        <% next_evolution_hash = {name: next_evolution["species"]["name"], nested: true, conditions: []} %>
         <% next_evolution["evolution_details"][-1].each do |key, value| %>
           <% if value != nil && value != false && value != ""%>
             <% next_evolution_hash[:conditions] << {key => value} %>
@@ -64,8 +67,37 @@
 <% end %>
 
 
-<%# <% evolutions.each do |evolution| %>
-  <%# <%= "#{@base_pokemon} evolves into #{evolution[:name]} by #{evolution[:conditions][-1]["trigger"]["name"]} #{evolution[:conditions][0][evolution[:conditions][0].keys.first]}" %>
-<%# <% end %>
 
-<%= evolutions %>
+<% evolutions.each do |evolution| %>
+  <% if evolution[:nested] == false %>
+    <% evolved_from = @base_pokemon %>
+  <% else %>
+    <% evolved_from = evolutions[0][:name] %>
+  <% end %>
+  <% trigger = evolution[:conditions][-1]["trigger"]["name"] %>
+  <% if trigger == "level-up" && evolution[:conditions][0].key?("min_level") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} at level #{evolution[:conditions][0][evolution[:conditions][0].keys.first]}" %> <br>
+  <% elsif trigger == "level-up" && evolution[:conditions][0].key?("min_happiness") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} when leveling up with minimum #{evolution[:conditions][0][evolution[:conditions][0].keys.first]} happiness" %> <br>
+  <% elsif trigger == "use-item" && evolution[:conditions][0].key?("gender") == false %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} using a #{evolution[:conditions][0][evolution[:conditions][0].keys.first]["name"]}" %> <br>
+  <% elsif trigger == "use-item" && evolution[:conditions][0].key?("gender") %>
+    <% gender = "" %>
+    <% if evolution[:conditions][0]["gender"] == 2 %>
+      <% gender = "male" %>
+    <% else %>
+      <% gender = "female" %>
+    <% end %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} using a #{evolution[:conditions][1]["item"]["name"]} while being a #{gender}" %> <br>
+  <% end %>
+<% end %>
+
+
+<!-- Evolutions chains for testing -->
+<%# Eeeve evolution_chain  %>
+<%# <% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/133/").read)["evolution_chain"]["url"]; %>
+<%# <% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
+
+<%# Eeeve evolution_chain  %>
+<%# <% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/280/").read)["evolution_chain"]["url"]; %>
+<%# <% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
