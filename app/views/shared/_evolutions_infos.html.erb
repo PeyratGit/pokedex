@@ -39,7 +39,7 @@
 
 <% if parsed_chain["chain"]["evolves_to"].empty? == false %> <%# If the pokemon can evolve %>
   <% conditions_count = 0 %>
-  <% @evolutions_array = parsed_chain["chain"]["evolves_to"] %>
+  <% @evolutions_array = parsed_chain["chain"]["evolves_to"]%>
   <% @evolutions_array.each do |evolution| %>
     <% evolution_hash = {name: evolution["species"]["name"], conditions: [] } %>
     <% evolution["evolution_details"][-1].each do |key, value| %>
@@ -48,10 +48,24 @@
       <% end %>
     <% end %>
     <% evolutions << evolution_hash %>
+    <% next_evolutions_count = evolution["evolves_to"].length %>
+    <% if next_evolutions_count > 0 %>
+      <% evolution["evolves_to"].each do |next_evolution| %>
+        <% next_evolution_hash = {name: next_evolution["species"]["name"], conditions: []} %>
+        <% next_evolution["evolution_details"][-1].each do |key, value| %>
+          <% if value != nil && value != false && value != ""%>
+            <% next_evolution_hash[:conditions] << {key => value} %>
+          <% end %>
+        <% end %>
+        <% evolutions << next_evolution_hash %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
 
 
-<% evolutions.each do |evolution| %>
-  <%= "#{@base_pokemon} evolves into #{evolution[:name]} by #{evolution[:conditions][-1]["trigger"]["name"]} #{evolution[:conditions][0][evolution[:conditions][0].keys.first]}" %>
-<% end %>
+<%# <% evolutions.each do |evolution| %>
+  <%# <%= "#{@base_pokemon} evolves into #{evolution[:name]} by #{evolution[:conditions][-1]["trigger"]["name"]} #{evolution[:conditions][0][evolution[:conditions][0].keys.first]}" %>
+<%# <% end %>
+
+<%= evolutions %>
