@@ -31,3 +31,27 @@
     <%= image_tag(Pokemon.find_by(name: @second_evolution).front_default) %>
   </div>
 </div>
+
+<% @base_pokemon = parsed_chain["chain"]["species"]["name"] %>
+
+<% evolutions = [] %>
+<% evolution_hash = {} %>
+
+<% if parsed_chain["chain"]["evolves_to"].empty? == false %> <%# If the pokemon can evolve %>
+  <% conditions_count = 0 %>
+  <% @evolutions_array = parsed_chain["chain"]["evolves_to"] %>
+  <% @evolutions_array.each do |evolution| %>
+    <% evolution_hash = {name: evolution["species"]["name"], conditions: [] } %>
+    <% evolution["evolution_details"][-1].each do |key, value| %>
+      <% if value != nil && value != false && value != ""%>
+        <% evolution_hash[:conditions] << {key => value} %>
+      <% end %>
+    <% end %>
+    <% evolutions << evolution_hash %>
+  <% end %>
+<% end %>
+
+
+<% evolutions.each do |evolution| %>
+  <%= "#{@base_pokemon} evolves into #{evolution[:name]} by #{evolution[:conditions][-1]["trigger"]["name"]} #{evolution[:conditions][0][evolution[:conditions][0].keys.first]}" %>
+<% end %>
