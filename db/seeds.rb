@@ -7,12 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-puts "PokemonAbilities 0"
-SpeciesFlavorText.destroy_all
-puts "PokemonAbilities 1"
-
-
-
 if Species.count != 898
   puts "Destroying species..."
   Species.destroy_all
@@ -238,7 +232,7 @@ if Ability.count != 267
   puts "Abilities created !"
 end
 
-if PokemonAbility.count < (Pokemon.count * 2)
+if PokemonAbility.count < (Pokemon.count)
   puts "Creating pokemon abilities..."
   Pokemon.all.order(:api_id).each do |pokemon|
     puts "This is the pokemon : name : #{pokemon.name}, api_id : #{pokemon.api_id}"
