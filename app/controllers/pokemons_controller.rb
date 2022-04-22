@@ -1,6 +1,6 @@
 class PokemonsController < ApplicationController
   def index
-    @pokemons = Pokemon.all
+    @pokemons = Pokemon.all.order(:api_id)
     @pokemons_names = Pokemon.pluck(:name).sort
     if params[:query].present?
       @pokemons = @pokemons.where('name ILIKE ?', "%#{params[:query]}%")
