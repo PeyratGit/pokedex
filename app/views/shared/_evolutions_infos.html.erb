@@ -1,0 +1,114 @@
+<% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/#{Species.find(@pokemon.species_id).api_id}/").read)["evolution_chain"]["url"]; %>
+<% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
+
+<%# Evolve only from level  %>
+<% if parsed_chain["chain"]["evolves_to"][0]["evolves_to"].empty? == false %> <%# If there is more than one evolution %>
+  <% @base_evolution = parsed_chain["chain"]["species"]["name"] %>
+  <% @first_evolution = parsed_chain["chain"]["evolves_to"][0]["species"]["name"] %>
+  <% @first_evolution_level = parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %>
+  <% @second_evolution = parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"] %>
+  <% @second_evolution_level = parsed_chain["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"] %>
+<% elsif parsed_chain["chain"]["evolves_to"][0]["evolves_to"].empty? %> <%# If there is only one evolution %>
+  <% @base_evolution = parsed_chain["chain"]["species"]["name"] %>
+  <% @first_evolution = parsed_chain["chain"]["evolves_to"][0]["species"]["name"] %>
+  <% @first_evolution_level = parsed_chain["chain"]["evolves_to"][0]["evolution_details"][0]["min_level"] %>
+<% end %>
+
+
+<% chain_url = JSON.parse(URI.open("https://pokeapi.co/api/v2/pokemon-species/1").read)["evolution_chain"]["url"]; %>
+<% parsed_chain = JSON.parse(URI.open(chain_url).read) %>
+
+
+<% @base_pokemon = parsed_chain["chain"]["species"]["name"] %>
+<% evolutions = [] %>
+<% evolution_hash = {} %>
+
+<% if parsed_chain["chain"]["evolves_to"].empty? == false %> <%# If the pokemon can evolve %>
+  <% conditions_count = 0 %>
+  <% @evolutions_array = parsed_chain["chain"]["evolves_to"]%>
+  <% @evolutions_array.each do |evolution| %>
+    <% evolution_hash = {name: evolution["species"]["name"], nested: false, conditions: [] } %>
+    <% evolution["evolution_details"][-1].each do |key, value| %>
+      <% if value != nil && value != false && value != ""%>
+        <% evolution_hash[:conditions] << {key => value} %>
+      <% end %>
+    <% end %>
+    <% evolutions << evolution_hash %>
+    <% next_evolutions_count = evolution["evolves_to"].length %>
+    <% if next_evolutions_count > 0 %>
+      <% evolution["evolves_to"].each do |next_evolution| %>
+        <% next_evolution_hash = {name: next_evolution["species"]["name"], nested: true, conditions: []} %>
+        <% next_evolution["evolution_details"][-1].each do |key, value| %>
+          <% if value != nil && value != false && value != ""%>
+            <% next_evolution_hash[:conditions] << {key => value} %>
+          <% end %>
+        <% end %>
+        <% evolutions << next_evolution_hash %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% nested =  0 %>
+
+<% evolutions.each do |evolution| %>
+  <% if evolution[:nested] == false %> <!-- If the evolution is a direct one from the base pokemon or if it's a n+1 evolution. Nested = n+1-->
+    <% evolved_from = @base_pokemon %> <!-- Define the evolved_from pokemon as the base pokemon of the evolution chain -->
+  <% else %>
+    <% nested += 1 %>
+    <% evolved_from = evolutions[0][:name] %> <!-- Define the evolved_from pokemon as the previous (n-1) pokemon in the evolution chain -->
+  <% end %>
+
+  <% trigger = evolution[:conditions][-1]["trigger"]["name"] %> <!-- Check what is the trigger of the evolution -->
+
+   <!-- If the trigger is a level up while holding an item with a time of day as additional condition -->
+  <% if trigger == "level-up" && evolution[:conditions][0].key?("held_item") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} when leveling up while holding a #{evolution[:conditions][0]["held_item"]["name"]} when it's the #{evolution[:conditions][1]["time_of_day"]}" %> <br>
+  <!-- If the trigger is a level up with a gender as additional condition -->
+  <% elsif trigger == "level-up" && evolution[:conditions][0].key?("gender") %>
+    <% gender = "" %>
+    <% if evolution[:conditions][0]["gender"] == 2 %>
+      <% gender = "male" %>
+    <% else %>
+      <% gender = "female" %>
+    <% end %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} at level #{evolution[:conditions][1]["min_level"]} while being a #{gender}" %> <br>
+  <!-- If the trigger is a level up with a time of day as additional condition -->
+  <% elsif trigger == "level-up" && evolution[:conditions][1].key?("time_of_day") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} at level #{evolution[:conditions][0]["min_level"]} when it's the #{evolution[:conditions][1]["time_of_day"]}" %> <br>
+  <!-- If the trigger is a simple level up with no other condition -->
+  <% elsif trigger == "level-up" && evolution[:conditions][0].key?("min_level") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} at level #{evolution[:conditions][0]["min_level"]}" %> <br>
+  <!-- If the trigger is a level up with happiness and time of day as additional conditions -->
+  <% elsif trigger == "level-up" && evolution[:conditions][0].key?("min_happiness") && evolution[:conditions][1].key?("time_of_day") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} when leveling up with minimum #{evolution[:conditions][0]["min_happiness"]} happiness when it's the #{evolution[:conditions][1]["time_of_day"]}" %> <br>
+  <!-- If the trigger is a level up with happiness as additional condition -->
+  <% elsif trigger == "level-up" && evolution[:conditions][0].key?("min_happiness") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} when leveling up with minimum #{evolution[:conditions][0]["min_happiness"]} happiness" %> <br>
+  <!-- If the trigger is a level up with a know move as additional condition -->
+  <% elsif trigger == "level-up" && evolution[:conditions][0].key?("known_move") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} when leveling up while knowing #{evolution[:conditions][0]["known_move"]["name"]}" %> <br>
+  <!-- If the trigger is a level up with a know move type as additional condition -->
+  <% elsif trigger == "level-up" && evolution[:conditions][0].key?("known_move_type") %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} when leveling up while knowing a #{evolution[:conditions][0]["known_move_type"]["name"]} move" %> <br>
+  <!-- If the trigger is the use of an item with no additional condition -->
+  <% elsif trigger == "use-item" && evolution[:conditions][0].key?("gender") == false %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} using a #{evolution[:conditions][0]["item"]["name"]}" %> <br>
+  <!-- If the trigger is the use of an item and a gender as additional condition -->
+  <% elsif trigger == "use-item" && evolution[:conditions][0].key?("gender") %>
+    <% gender = "" %>
+    <% if evolution[:conditions][0]["gender"] == 2 %>
+      <% gender = "male" %>
+    <% else %>
+      <% gender = "female" %>
+    <% end %>
+    <%= "#{evolved_from} evolves into #{evolution[:name]} using a #{evolution[:conditions][1]["item"]["name"]} while being a #{gender}" %> <br>
+  <% end %>
+<% end %>
+
+
+<!-- Species ids for testing -->
+<%# Eeeve 133  %>
+<%# Ralts 280 %>
+<%# Swinub 473 %>
+<%# Happiny 440 %>

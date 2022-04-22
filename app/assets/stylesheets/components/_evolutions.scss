@@ -1,0 +1,17 @@
+.evolutions {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  justify-content: center;
+  align-items: center;
+  .level {
+    width: min-content;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-bottom: 3px solid black;
+  }
+  .evolution {
+    width: min-content;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
