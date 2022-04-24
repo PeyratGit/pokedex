@@ -1,12 +1,22 @@
 <div class="board">
   <div class="animated-sprite">
-    <%= image_tag("https://projectpokemon.org/images/normal-sprite/#{@pokemon.name}.gif") %>
+    <% response = {} %>
+    <% uri = URI("https://projectpokemon.org/images/normal-sprite/#{@pokemon.name}.gif") %>
+    <% Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http| %>
+      <% request = Net::HTTP::Get.new uri %>
+      <% response = http.request request %>
+    <% end %>
+    <% if response.content_type.starts_with?("image") %>
+      <%= image_tag("https://projectpokemon.org/images/normal-sprite/#{@pokemon.name}.gif") %>
+    <% else %>
+      <%= image_tag(@pokemon.front_default) %>
+    <% end %>
   </div>
   <div class="name">
     <h2><%= @pokemon.name.capitalize %></h2>
   </div>
   <div class="pokedex-number">
-    <p>#<%= @pokemon.order %></p>
+    <p>#<%= @pokemon.api_id %></p>
   </div>
   <div class="types">
     <% if @pokemon.type_2.nil? %>
